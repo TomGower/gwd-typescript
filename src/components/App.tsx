@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import Joker from './Joker';
 import SpecialRound from './SpecialRound';
-import RoundOne from './Round1';
-import MusicRound from './Round2';
-import RoundThree from './Round3';
-import RoundFour from './Round4';
-import RoundFive from './Round5';
+import NormalRound from './NormalRound';
+import MusicRound from './MusicRound';
 import RoundSix from './Round6';
-import RoundSeven from './Round7';
-import RandomRound from './Round8';
+import RandomRound from './RandomRound';
 import BonusQuestions from './BonusQuestions';
 
 interface IState {
@@ -52,19 +48,11 @@ interface IState {
   },
   r6info: {
     round: number,
-    special: boolean,
     scores: any[],
     answers: string[],
     score: number
   },
   r7info: {
-    round: number,
-    special: boolean,
-    scores: any[],
-    answers: string[],
-    score: number
-  },
-  r8info: {
     round: number,
     scores: any[],
     answers: string[],
@@ -74,7 +62,7 @@ interface IState {
 }
 
 class App extends Component<{}, IState> {
-  constructor(props : any) {
+  constructor(props: {}) {
     super(props);
     this.state = {
       currentPage: 1,
@@ -117,29 +105,17 @@ class App extends Component<{}, IState> {
       },
       r6info: {
         round: 6,
-        special: false,
-        scores: Array(8).fill(null),
-        answers: Array(8).fill(''),
+        scores: Array(16).fill(null),
+        answers: Array(16).fill(''),
         score: 0,
       },
       r7info: {
         round: 7,
-        special: false,
-        scores: Array(8).fill(null),
-        answers: Array(8).fill(''),
-        score: 0,
-      },
-      r8info: {
-        round: 8,
         scores: Array(16).fill(null),
         answers: Array(16).fill(''),
         score: 0,
       },
     };
-    this.updateScore = this.updateScore.bind(this);
-    this.pickJoker = this.pickJoker.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.checkSpecialRound = this.checkSpecialRound.bind(this);
   }
 
   checkSpecialRound : () => void = () => {
@@ -174,9 +150,17 @@ class App extends Component<{}, IState> {
 
   pickJoker = () => {
     const radio = document.querySelectorAll<HTMLInputElement>('input[name=\'joker\']');
-    for (const node of Array.from(radio)) {
-      if (node.checked) {
-        this.setState({ joker: node.value.toString() });
+    for (let i = 0; i < radio.length; i += 1) {
+      if (radio[i].checked) {
+        const roundName = `r${i + 1}info`;
+        const jokerScore = this.state[roundName].score;
+        this.setState({
+          joker: radio[i].value,
+          jokerScore,
+          score: this.state.r1info.score + this.state.r2info.score + this.state.r3info.score
+          + this.state.r4info.score + this.state.r5info.score + this.state.r6info.score
+          + this.state.r7info.score + jokerScore,
+        });
         break;
       }
     }
@@ -206,7 +190,7 @@ class App extends Component<{}, IState> {
         this.setState({
           score: this.state.r1info.score + this.state.r2info.score + this.state.r3info.score
           + this.state.r4info.score + this.state.r5info.score + this.state.r6info.score
-          + this.state.r7info.score + this.state.r8info.score + this.state.jokerScore,
+          + this.state.r7info.score + this.state.jokerScore,
         });
       });
     } else {
@@ -218,9 +202,10 @@ class App extends Component<{}, IState> {
   }
 
   render() {
-    const pageNumbers = [1, 2, 3, 4, 5, 6, 7, 8];
+    const pageNumbers = [1, 2, 3, 4, 5, 6, 7];
 
     const renderPageNumbers = pageNumbers.map((num) => (
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
       <li
         key={num}
         id={num.toString()}
@@ -231,14 +216,15 @@ class App extends Component<{}, IState> {
     ));
 
     const {
-      currentPage, r1info, r2info, r3info, r4info, r5info, r6info, r7info, r8info, score,
+      currentPage, r1info, r2info, r3info, r4info, r5info, r6info, r7info, score,
     } = this.state;
     let currentRound;
-    if (this.state.currentPage === 1) {
+    if (currentPage === 1) {
       currentRound = (
-        <RoundOne
+        <NormalRound
           updater={this.updateScore}
           info={r1info}
+          key="r1"
         />
       );
     } else if (currentPage === 2) {
@@ -250,23 +236,26 @@ class App extends Component<{}, IState> {
       );
     } else if (currentPage === 3) {
       currentRound = (
-        <RoundThree
+        <NormalRound
           updater={this.updateScore}
           info={r3info}
+          key="r3"
         />
       );
     } else if (currentPage === 4) {
       currentRound = (
-        <RoundFour
+        <NormalRound
           updater={this.updateScore}
           info={r4info}
+          key="r4"
         />
       );
     } else if (currentPage === 5) {
       currentRound = (
-        <RoundFive
+        <NormalRound
           updater={this.updateScore}
           info={r5info}
+          key="r5"
         />
       );
     } else if (currentPage === 6) {
@@ -278,27 +267,19 @@ class App extends Component<{}, IState> {
       );
     } else if (currentPage === 7) {
       currentRound = (
-        <RoundSeven
-          updater={this.updateScore}
-          info={r7info}
-        />
-      );
-    } else if (currentPage === 8) {
-      currentRound = (
         <RandomRound
           updater={this.updateScore}
-          info={r8info}
+          info={r7info}
         />
       );
     }
 
     return (
       <div>
-        <h2>GEEKS WHO DRINK Scoresheet</h2>
+        <h2 style={{ align: "center" }}>GEEKS WHO DRINK Scoresheet</h2>
         <hr />
         <h4>
-          {'Your Current Score is '}
-          {score}
+          {`Your Current Score is ${score}`}
         </h4>
         <hr />
         <Joker pickJoker={this.pickJoker} />
