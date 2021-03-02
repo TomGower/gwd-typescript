@@ -143,7 +143,7 @@ class App extends Component<{}, IState> {
   }
 
   checkSpecialRound : () => void = () => {
-    const specialRound = document.querySelectorAll('input[name=\'bonus\']');
+    const specialRound = document.querySelectorAll<HTMLInputElement>('input[name=\'bonus\']');
     for (let i = 0; i < specialRound.length; i += 1) {
       let special = 0;
       if (i === 0) special = 1;
@@ -163,8 +163,9 @@ class App extends Component<{}, IState> {
 
   handleClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     let value = 0;
-    if (event.target.id) {
-      value = Number(event.target.id)
+    const target = event.target as HTMLLIElement;
+    if (target.id) {
+      value = Number(target.id)
     }
     this.setState({
       currentPage: value,
@@ -172,7 +173,7 @@ class App extends Component<{}, IState> {
   }
 
   pickJoker = () => {
-    const radio = document.querySelectorAll('input[name=\'joker\']');
+    const radio = document.querySelectorAll<HTMLInputElement>('input[name=\'joker\']');
     for (const node of Array.from(radio)) {
       if (node.checked) {
         this.setState({ joker: node.value.toString() });
@@ -182,11 +183,12 @@ class App extends Component<{}, IState> {
   }
 
   updateScore = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const round = event.target.value;
-    const answerBoxes = document.querySelectorAll(`input[id~='round${round}answer']`);
+    const target = event.target as HTMLButtonElement;
+    const round = target.value;
+    const answerBoxes = document.querySelectorAll<HTMLInputElement>(`input[id~='round${round}answer']`);
     const answers : string[] = [];
     answerBoxes.forEach((answer) => answers.push(answer.value.toString()));
-    const checkboxes = document.querySelectorAll(`input[id~='round${round}']`);
+    const checkboxes = document.querySelectorAll<HTMLInputElement>(`input[id~='round${round}']`);
     const check : number[] = [];
     checkboxes.forEach((checkbox) => (checkbox.checked ? check.push(1) : check.push(0)));
     const thisScore = check.reduce((acc, cur) => (acc + cur));
