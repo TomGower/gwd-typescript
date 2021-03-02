@@ -5,32 +5,35 @@ interface IProps {
   artistColor: string,
   titleAnswer: string,
   artistAnswer: string,
-  titleChecked: string,
-  artistChecked: string,
-  qnumber: number,
+  titleChecked: string | boolean,
+  artistChecked: string | boolean,
+  num: number,
   round: number
 }
 
 const MusicQuestion : FunctionComponent<IProps> = ({
-  titleColor, artistColor, titleAnswer, artistAnswer, titleChecked, artistChecked, qnumber, round,
+  titleColor, artistColor, titleAnswer, artistAnswer, titleChecked, artistChecked, num, round,
 }) => (
   <div>
     <strong>
-      {'Question '}
-      {qnumber}
+      {`Question ${num}`}
     </strong>
     <br />
     <span style={{ color: titleColor }}>Title</span>
     {': '}
-    <input className="answer" id={`round${round}answer q${qnumber}a`} defaultValue={titleAnswer} />
-    <input type="checkbox" id={`round${round} question${qnumber}`} defaultChecked={!!titleChecked} />
-    <label htmlFor={`question${qnumber}`}>Check if correct</label>
+    <input className="answer" id={`round${round}answer q${num}a`} defaultValue={titleAnswer} />
+    <label htmlFor={`question${num}`}>
+      <input type="checkbox" id={`round${round} question${num}`} defaultChecked={!!titleChecked} />
+      Check if correct
+    </label>
     <br />
     <span style={{ color: artistColor }}>Artist</span>
     {': '}
-    <input className="answer" id={`round${round}answer q${qnumber}b`} defaultValue={artistAnswer} />
-    <input type="checkbox" id={`round${round} question${qnumber}`} defaultChecked={!!artistChecked} />
-    <label htmlFor={`question${qnumber}`}>Check if correct</label>
+    <input className="answer" id={`round${round}answer q${num}b`} defaultValue={artistAnswer} />
+    <label htmlFor={`question${num}`}>
+      <input type="checkbox" id={`round${round} question${num}`} defaultChecked={!!artistChecked} />
+      Check if correct
+    </label>
     <br />
   </div>
 );
