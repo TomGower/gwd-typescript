@@ -1,17 +1,5 @@
 import React, { FunctionComponent } from 'react';
-
-interface JokerInputProps {
-  round: number
-}
-
-const JokerInput : FunctionComponent<JokerInputProps> = ({ round }) => (
-  <>
-    <label htmlFor={`Jround${round}`}>
-      <input type="radio" id={`Jround${round}`} name="joker" value={`r${round}`} data-input={round} />
-      {`Round ${round}`}
-    </label>
-  </>
-);
+import JokerInput from './JokerInput';
 
 const rounds = [1, 2, 3, 4, 5, 6, 7];
 
