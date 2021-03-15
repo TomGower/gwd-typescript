@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 
 interface IProps {
   roundNumber: number
 }
 
-const BonusQuestion : FunctionComponent<IProps> = ({ roundNumber }) => (
+const BonusQuestion = ({ roundNumber }: IProps) => (
   <>
     {`Round ${roundNumber} Bonus Question`}
     <br />

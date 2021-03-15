@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 
 interface IProps {
   checkSpecialRound: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-const SpecialRound : FunctionComponent<IProps> = ({ checkSpecialRound }) => (
+const SpecialRound = ({ checkSpecialRound }: IProps) => (
   <div>
     <p>Pick which rounds are special 16-point rounds!</p>
     <div>

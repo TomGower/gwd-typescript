@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import TwoPartQuestion from './TwoPartQuestion';
 
 interface IProps {
@@ -11,9 +11,9 @@ interface IProps {
   }
 }
 
-const RoundSix : FunctionComponent<IProps> = ({
+const RoundSix = ({
   updater, info,
-}) => {
+}: IProps) => {
   const colors = [];
   for (const score of info.scores) {
     if (parseInt(score, 10) === 1) {

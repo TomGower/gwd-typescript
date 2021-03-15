@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import Question from './Question';
 import TwoPartQuestion from './TwoPartQuestion';
 
@@ -12,9 +12,9 @@ interface IProps {
   }
 }
 
-const RandomRound : FunctionComponent<IProps> = ({
+const RandomRound = ({
   updater, info,
-}) => {
+}: IProps) => {
   const colors = [];
   for (const score of info.scores) {
     if (parseInt(score, 10) === 1) {

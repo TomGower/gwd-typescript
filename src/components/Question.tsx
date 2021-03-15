@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 
 interface IProps {
   thisColor: string,
@@ -8,9 +8,9 @@ interface IProps {
   checked: string | boolean,
 }
 
-const Question : FunctionComponent<IProps> = ({
+const Question= ({
   thisColor, round, answer, num, checked = false,
-}) => (
+}: IProps) => (
   <div>
     <strong>{`Question ${num}`}</strong>
     <br />

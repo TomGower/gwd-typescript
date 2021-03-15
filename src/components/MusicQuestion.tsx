@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 
 interface IProps {
   titleColor: string,
@@ -11,9 +11,9 @@ interface IProps {
   round: number
 }
 
-const MusicQuestion : FunctionComponent<IProps> = ({
+const MusicQuestion = ({
   titleColor, artistColor, titleAnswer, artistAnswer, titleChecked, artistChecked, num, round,
-}) => (
+}: IProps) => (
   <div>
     <strong>
       {`Question ${num}`}

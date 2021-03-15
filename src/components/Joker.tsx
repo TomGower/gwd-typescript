@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import JokerInput from './JokerInput';
 
 const rounds = [1, 2, 3, 4, 5, 6, 7];
@@ -7,7 +7,7 @@ interface IProps {
   pickJoker: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-const Joker : FunctionComponent<IProps> = ({ pickJoker }) => (
+const Joker = ({ pickJoker }: IProps) => (
   <div>
     <p>Pick which round you want to joker!</p>
     <div>

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 
 interface IProps {
   round: number,
@@ -11,9 +11,9 @@ interface IProps {
   checked2: string | boolean
 }
 
-const TwoPartQuestion : FunctionComponent<IProps> = ({
+const TwoPartQuestion = ({
   round, num, color1, answer1, checked1, color2, answer2, checked2,
-}) => (
+}: IProps) => (
   <div>
     <strong>
       {`Question ${num}`}

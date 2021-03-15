@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import MusicQuestion from './MusicQuestion';
 
 interface IProps {
@@ -11,9 +11,9 @@ interface IProps {
   }
 }
 
-const MusicRound : FunctionComponent<IProps> = ({
+const MusicRound = ({
   info, updater,
-}) => {
+}: IProps) => {
   const colors = [];
   for (const score of info.scores) {
     if (parseInt(score, 10) === 1) {
